@@ -1,0 +1,21 @@
+{% extends 'blog/base_blog.html' %}
+<body onload="prettyPrint()">
+
+{% block title %}
+  {{ script.title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="offset-md-0">
+  <h3 class="mt-4">{{ script.title }}:</h3>
+  <p>{{ script.description }}</p>
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<pre class="prettyprint">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p>{{ script.body|linebreaksbr }}</p>
+    </li>
+  </ul>
+</pre>
+</div>
+{% endblock %}

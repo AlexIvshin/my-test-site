@@ -1,0 +1,21 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+  Mans list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h3 class="mt-4">Mans:</h3>
+
+  {% for man in mans|dictsort:'title' %}
+
+    <style>
+    li {
+      line-height: 10px;
+    }
+    </style>
+    <p><a href="{{ man.get_absolute_url }}" class="text-secondary"><li>
+    {{ man.title }}</li></a></p>
+
+  {% endfor %}
+{% endblock %}

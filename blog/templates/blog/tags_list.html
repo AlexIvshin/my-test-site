@@ -1,0 +1,19 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+  Tags list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h3 class="mt-4">Tags:</h3>
+  {% for tag in tags|dictsort:'title' %}
+    <h6 class="mt-2">
+      <li>
+        <a href="{{ tag.get_absolute_url }}">
+        {{ tag.title }}
+        </a>
+      </li>
+    </h6>
+  {% endfor %}
+
+{% endblock %}

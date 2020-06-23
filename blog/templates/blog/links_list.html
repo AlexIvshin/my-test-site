@@ -1,0 +1,20 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+  Links list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h3 class="mt-4">Helpful links:</h3>
+
+  {% for link in links|dictsort:'description' %}
+
+    <style>
+    li {
+      line-height: 10px;
+    }
+    </style>
+    <p><li>{{ link.title|urlize }} - {{ link.description }}</li></p>
+
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+  {{ man.title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h3 class="mt-4 mb-3">"{{ man.title }}"</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p>{{ man.body|linebreaksbr|urlize }}</p>
+    </li>
+  </ul>
+{% endblock %}

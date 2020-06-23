@@ -1,0 +1,23 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+  Scripts list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h3 class="mt-4">Scripts:</h3>
+
+  {% for script in scripts|dictsort:'title' %}
+
+    <style>
+    li {
+      line-height: 10px;
+    }
+    </style>
+    <p><a href="{{ script.get_absolute_url }}" class="text-secondary"><li>
+    {{ script.title }} - {{ script.description|truncatewords:10 }}</li></a></p>
+
+  {% endfor %}
+{% endblock %}
+
+
