@@ -1,19 +1,26 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-  Tags list - {{ block.super }}
+Tags list - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-  <h3 class="mt-4">Tags:</h3>
-  {% for tag in tags|dictsort:'title' %}
-    <h6 class="mt-2">
-      <li>
-        <a href="{{ tag.get_absolute_url }}">
-        {{ tag.title }}
-        </a>
-      </li>
-    </h6>
-  {% endfor %}
+
+<h3 class="mt-4 ml-3"><b>Tags:</b></h3>
+{% for tag in tags|dictsort:'title' %}
+
+<style>li {line-height: 10px;}</style>
+<h6 class="ml-3">
+  <a href="{{ tag.get_absolute_url }}">
+    <svg class="bi bi-caret-right-fill text-secondary" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+    </svg>
+    {{ tag.title }}
+  </a>
+</h6>
+
+{% endfor %}
 
 {% endblock %}

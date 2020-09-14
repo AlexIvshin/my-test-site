@@ -3,13 +3,13 @@
 <body onload="prettyPrint()">
 
   {% block title %}
-  {{ script.title }} - {{ block.super }}
+  {{ command.title }} - {{ block.super }}
   {% endblock %}
 
   {% block content %}
   <div class="offset-md-0">
-    <h3 class="mt-4">{{ script.title }}:</h3>
-    <h5>{{ script.description }}</h5>
+    <h3 class="mt-4">{{ command.title }}:</h3>
+ 
     <style>
       li {
         line-height: 14px;
@@ -19,7 +19,7 @@
     </script>
     <li class="list-group">
       <pre class="prettyprint">
-      <p class="ml-3"><font size="2">{{ script.body|linebreaksbr }}</font></p>
+      <p class="ml-3"><font size="2">{{ command.body|linebreaksbr }}</font></p>
     </pre>
     </li>
   </div>

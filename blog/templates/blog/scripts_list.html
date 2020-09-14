@@ -1,23 +1,27 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-  Scripts list - {{ block.super }}
+Scripts list - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-  <h3 class="mt-4">Scripts:</h3>
 
-  {% for script in scripts|dictsort:'title' %}
+<h3 class="mt-4 ml-3"><b>Scripts:</b></h3>
 
-    <style>
-    li {
-      line-height: 10px;
-    }
-    </style>
-    <p><a href="{{ script.get_absolute_url }}" class="text-secondary"><li>
-    {{ script.title }} - {{ script.description|truncatewords:10 }}</li></a></p>
+{% for script in scripts|dictsort:'title' %}
 
-  {% endfor %}
+<style>li {line-height: 12px;}</style>
+<h6 class="ml-3">
+  <a href="{{ script.get_absolute_url }}" class="text-secondary">
+    <svg class="bi bi-caret-right-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+    </svg>
+    {{ script.title }} - {{ script.description|truncatewords:10 }}
+  </a>
+</h6>
+
+{% endfor %}
+
 {% endblock %}
-
-

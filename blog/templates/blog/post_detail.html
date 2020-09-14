@@ -6,9 +6,14 @@
 
 {% block content %}
   <h3 class="mt-4 mb-3">"{{ post.title }}"</h3>
+  <style>
+    li {
+      line-height: 16px;
+    }
+  </style>
   <ul class="list-group">
     <li class="list-group-item">
-      <p>{{ post.body|linebreaksbr|urlize }}</p>
+      <p><font size="2">{{ post.body|linebreaksbr|urlize }}</font></p>
     </li>
   </ul>
 {% endblock %}

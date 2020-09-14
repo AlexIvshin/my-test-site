@@ -1,19 +1,19 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-Delete Script "{{ script.title }}" - {{ block.super }}
+Delete Command "{{ command.title }}" - {{ block.super }}
 {% endblock %}
 
 {% block content %}
 <div class="mx-auto">
-  <form action="{{ script.get_delete_url }}" method="post">
+  <form action="{{ command.get_delete_url }}" method="post">
     {% csrf_token %}
     <h3 class="mt-4"><b style="color:#b80909">Are you sure you want to delete ?</b></h3>
-    <h4 class="font-italic"><b>"{{ script.title }}"</b></h4>
+    <h4 class="font-italic"><b>"{{ command.title }}"</b></h4>
     <button type="submit" name="button" class="btn btn-sm btn-danger mt-2 mr-3">
       Delete
     </button>
-    <a href="{{ script.get_absolute_url }}" class="btn btn-sm btn-secondary mt-2">Cancel</a>
+    <a href="{{ command.get_absolute_url }}" class="btn btn-sm btn-secondary mt-2">Cancel</a>
   </form>
 </div>
 {% endblock %}

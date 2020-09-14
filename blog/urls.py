@@ -31,4 +31,12 @@ urlpatterns = [
     path('man/<str:slug>/delete/', ManDelete.as_view(), name='man_delete_url'),
 
     path('link/', links_list, name='links_list_url'),
+
+    path('commands/', commands_list, name='commands_list_url'),
+    path('command/create/', CommandCreate.as_view(), name='command_create_url'),
+    path('command/<str:slug>/', CommandDetail.as_view(), name='command_detail_url'),
+    path('command/<str:slug>/update/', CommandUpdate.as_view(), name='command_update_url'),
+    path('command/<str:slug>/delete/', CommandDelete.as_view(), name='command_delete_url'),
+
+    path('search/', search_list, name='search_list_url'),
 ]

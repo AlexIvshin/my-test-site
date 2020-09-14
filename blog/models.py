@@ -120,3 +120,29 @@ class Man(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Command(models.Model):
+    title = models.CharField(max_length=150, db_index=True)
+    slug = models.SlugField(max_length=150,blank=True, unique=True)
+    body = models.TextField()
+
+    class Meta:
+        ordering = ['title']
+
+    def get_absolute_url(self):
+        return reverse('command_detail_url', kwargs={'slug': self.slug})
+
+    def get_update_url(self):
+        return reverse('command_update_url', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = gen_slug(self.title)
+        super().save(*args, **kwargs)
+
+    def get_delete_url(self):
+        return reverse('command_delete_url', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return self.title

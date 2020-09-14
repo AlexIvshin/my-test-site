@@ -1,12 +1,15 @@
 {% extends 'blog/base_blog.html' %}
 
 {% block title %}
-  Posts - {{ block.super }}
+Posts - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-<h2 class="mt-3">Posts:</h2>
+
+<h2 class="mt-3"><b>Posts:</b></h2>
+
 {% for post in page_object.object_list %}
-  {% include 'blog/includes/post_card_template.html' %}
+{% include 'blog/includes/post_card_template.html' %}
 {% endfor %}
+
 {% endblock %}

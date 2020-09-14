@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Post, Tag, Script, Man, Link
+from .models import Post, Tag, Script, Man, Link, Command
 from django.views.generic import View
 from .utils import *
-from .forms import TagForm, PostForm, ScriptForm, LinkForm, ManForm
+from .forms import TagForm, PostForm, ScriptForm, LinkForm, ManForm, CommandForm
 from django.core.paginator import Paginator
 from django.db.models import Q
-
-
 
 
 class PostDetail(ObjectDetailMixin, View):
@@ -110,13 +108,33 @@ class ManUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
     raise_exception = True
 
 
-def posts_list(request):
-    search_query = request.GET.get('search', '')
-    if search_query:
-        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
-    else:
-        posts = Post.objects.all()
+class CommandDetail(ObjectDetailMixin, View):
+    model = Command
+    template = 'blog/command_detail.html'
 
+
+class CommandCreate(LoginRequiredMixin, ObjectCreateMixin, View):
+    model_form = CommandForm
+    template = 'blog/command_create_form.html'
+    raise_exception = True
+
+
+class CommandDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
+    model = Command
+    template = 'blog/command_delete_form.html'
+    redirect_url = 'commands_list_url'
+    raise_exception = True
+
+
+class CommandUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
+    model = Command
+    model_form = CommandForm
+    template = 'blog/command_update_form.html'
+    raise_exception = True
+
+
+def posts_list(request):
+    posts = Post.objects.all()
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -139,27 +157,48 @@ def posts_list(request):
             'prev_url': prev_url
     }
 
-    return render(request, 'blog/index.html',context=context)
+    return render(request, 'blog/index.html', context=context)
+
 
 def tags_list(request):
     tags = Tag.objects.all()
-    return render(request, 'blog/tags_list.html', context={'tags':tags})
+    return render(request, 'blog/tags_list.html', context={'tags': tags})
+
 
 def scripts_list(request):
     scripts = Script.objects.all()
+    return render(request, 'blog/scripts_list.html', context={'scripts': scripts})
 
-    search_query = request.GET.get('search', '')
-    if search_query:
-        scripts = Script.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
-    else:
-        scripts = Script.objects.all()
-
-    return render(request, 'blog/scripts_list.html', context={'scripts':scripts})
 
 def links_list(request):
     links = Link.objects.all()
-    return render(request, 'blog/links_list.html', context={'links':links})
+    return render(request, 'blog/links_list.html', context={'links': links})
+
 
 def mans_list(request):
     mans = Man.objects.all()
-    return render(request, 'blog/mans_list.html', context={'mans':mans})
+    return render(request, 'blog/mans_list.html', context={'mans': mans})
+
+
+def commands_list(request):
+    commands = Command.objects.all()
+    return render(request, 'blog/commands_list.html', context={'commands': commands})
+
+
+def search_list(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+        scripts = Script.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
+        links = Link.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
+        commands = Command.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+        mans = Man.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+        context = {
+            'search_query':search_query,
+            'scripts': scripts,
+            'posts': posts,
+            'links': links,
+            'commands': commands,
+            'mans': mans
+        }
+        return render(request, 'blog/search_list.html', context=context )
